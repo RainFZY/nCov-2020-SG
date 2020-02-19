@@ -1,0 +1,216 @@
+<!-- AKe8yGrTlVZG9xZOTBie4BGBTmiGNMxE -->
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	<style type="text/css">
+		body,
+		html,
+		#allmap {
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+			margin: 0;
+			font-family: "微软雅黑";
+		}
+        /* #l-map{height:100%;width:78%;float:left;border-right:2px solid #bcbcbc;}
+		#r-result{height:100%;width:20%;float:left;} */
+    </style>
+    <link rel="stylesheet" href="style.css" type="text/css">
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=3.0&ak=AKe8yGrTlVZG9xZOTBie4BGBTmiGNMxE"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/library/CurveLine/1.5/src/CurveLine.min.js"></script>
+	<title>地图展示</title>
+</head>
+
+<body>
+    <div id="allmap"></div>
+    <div id="control">
+        <div onclick="removeCurve()" class="button">清除曲线</div>
+    </div>
+</body>
+
+</html>
+<script type="text/javascript">
+	// 百度地图API功能
+	var map = new BMap.Map("allmap",{minZoom:13}); // 创建Map实例,13刚好能显示整个新加坡
+	// map.centerAndZoom(new BMap.Point(103.82,1.35), 13); // 初始化地图,设置中心点坐标和地图级别
+    map.centerAndZoom(new BMap.Point(103.87,1.32), 13); // 初始化地图,设置中心点坐标和地图级别
+    map.centerAndZoom("新加坡",13);      // 初始化地图,用城市名设置地图中心点
+	//添加地图类型控件
+	map.addControl(new BMap.MapTypeControl({
+		mapTypes: [
+			BMAP_NORMAL_MAP, // 普通模式地图
+			BMAP_HYBRID_MAP // 混合模式地图
+		]
+	}));
+	map.setCurrentCity("新加坡"); // 设置地图显示的城市 此项是必须设置的
+	map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
+
+
+    // 添加带有定位的导航控件
+    var navigationControl = new BMap.NavigationControl({
+        // 靠左上角位置
+        anchor: BMAP_ANCHOR_TOP_LEFT,
+        // LARGE类型
+        type: BMAP_NAVIGATION_CONTROL_LARGE,
+        // 启用显示定位
+        enableGeolocation: true
+    });
+    map.addControl(navigationControl);
+    // 添加定位控件
+    var geolocationControl = new BMap.GeolocationControl();
+    geolocationControl.addEventListener("locationSuccess", function(e){
+        // 定位成功事件
+        var address = '';
+        address += e.addressComponent.province;
+        address += e.addressComponent.city;
+        address += e.addressComponent.district;
+        address += e.addressComponent.street;
+        address += e.addressComponent.streetNumber;
+        alert("当前定位地址为：" + address);
+    });
+    geolocationControl.addEventListener("locationError",function(e){
+        // 定位失败事件
+        alert(e.message);
+    });
+    map.addControl(geolocationControl);
+
+    // 增加一个点
+    // var marker = new BMap.Marker(new BMap.Point(116.404, 39.915)); // 创建点
+    // map.addOverlay(marker); //增加点
+
+
+    // // 编写自定义函数,创建标注
+	// function addMarker(point_person){
+	//   var marker = new BMap.Marker(point_person);
+	//   map.addOverlay(marker);
+	// }
+	// // 随机向地图添加10个标注
+	// var bounds = map.getBounds();
+    // console.log(bounds);
+	// var sw = bounds.getSouthWest();
+	// var ne = bounds.getNorthEast();
+    // console.log(sw);
+	// var lngSpan = Math.abs(sw.lng - ne.lng);
+	// var latSpan = Math.abs(ne.lat - sw.lat);
+	// for (var i = 0; i < 10; i ++) {
+	// 	var point_person = new BMap.Point(sw.lng + lngSpan * (Math.random() * 0.7), ne.lat - latSpan * (Math.random() * 0.7));
+	// 	addMarker(point_person);
+	// }
+
+
+    // 多个点添加信息窗口
+    var person_info = [
+                    [103.8,1.39,"<b>Case: </b>#1(Confirmed on: 17 Feb)"+"<br/>"+"<b>Age: </b>52"+"<br/>"+"<b>Gender: </b>Female"+"<br/>"
+                    +"<b>From: </b>Singapore"+"<br/>"+"<b>Citizenship: </b>Singapore"],
+					[103.7,1.35,"<b>Case: </b>#2(Confirmed on: 18 Feb)"+"<br/>"+"<b>Age: </b>25"+"<br/>"+"<b>Gender: </b>Male"+"<br/>"
+                    +"<b>From: </b>China"+"<br/>"+"<b>Citizenship: </b>Singapore"],
+					[104,1.32,"<b>Case: </b>#3(Confirmed on: 18 Feb)"+"<br/>"+"<b>Age: </b>38"+"<br/>"+"<b>Gender: </b>Female"+"<br/>"
+                    +"<b>From: </b>Singapore"+"<br/>"+"<b>Citizenship: </b>Singapore"]
+					];
+    var place_info = [
+                    [103.9,1.37,"<b>Related To Case: </b>#1","car"],
+                    [103.8,1.31,"<b>Related To Case: </b>#1","car"],
+                    [103.71,1.32,"<b>Related To Case: </b>#2","walk"],
+                    [103.71,1.38,"<b>Related To Case: </b>#2","bicycle"],
+                    [103.69,1.34,"<b>Related To Case: </b>#2","walk"],
+                    [103.83,1.382,"<b>Related To Case: </b>#3","subway"],
+                    [103.9,1.37,"<b>Related To Case: </b>#3","subway"],
+                    [103.73, 1.426,"<b>Related To Case: </b>#3","bus"]
+                    ];
+	var opts = {
+				width : 260,     // 信息窗口宽度，0为自适应
+				height: 0,     // 信息窗口高度，0为自适应
+				title : "Information", // 信息窗口标题
+				enableMessage:true,//设置允许信息窗发送短息
+                message:""
+			   };
+    
+    // 遍历每个感染者
+	for(var i=0;i<person_info.length;i++){
+        var point_person = new BMap.Point(person_info[i][0],person_info[i][1]);
+        var icon_person = new BMap.Icon("images/virus2.png", new BMap.Size(100,100));
+        icon_person.imageSize = new BMap.Size(30,30);
+        icon_person.anchor = new BMap.Size(15,15);
+        var marker_person = new BMap.Marker(point_person,{icon:icon_person});  // 创建标注
+        marker_person.disableMassClear();
+        // var circle = new BMap.Circle(point_person,250,{fillColor:"red",fillOpacity:1,strokeColor:"red", strokeWeight:1, strokeOpacity:1}); //创建圆
+		var content_person = person_info[i][2];
+        // 内容中添加位置信息
+        content_person += ("<br/>"+"<b>Location: </b>"+person_info[i][1]+"N,"+person_info[i][0]+"E");
+		map.addOverlay(marker_person); // 将标注添加到地图中
+
+        var person2place = [];
+        for(var j=0;j<place_info.length;j++){
+            str = place_info[j][2]
+            num = parseInt(str.charAt(str.length-1));
+            if(num == (i+1)){
+                var valid_point_place= new BMap.Point(place_info[j][0],place_info[j][1]);
+                person2place.push([point_person,valid_point_place]); // 添加到数组末尾
+                content_person += ("<br/>"+"<b>Visited: </b>"+place_info[j][1]+"N,"+place_info[j][0]+"E"+"("+place_info[j][3]+")");
+            }
+        }
+        // console.log(person2place);
+		addClickHandler(content_person,marker_person,person2place);
+	}
+    // 遍历每个有感染者去过的地方
+    for(var i=0;i<place_info.length;i++){
+        var point_place = new BMap.Point(place_info[i][0],place_info[i][1]);
+        var icon_place = new BMap.Icon("images/location.png", new BMap.Size(100,100));
+        icon_place.imageSize = new BMap.Size(30,30);
+        icon_place.anchor = new BMap.Size(14,28);
+        var marker_place = new BMap.Marker(point_place,{icon:icon_place});  // 创建标注
+        marker_place.disableMassClear();
+        // var circle = new BMap.Circle(point_person,250,{fillColor:"red",fillOpacity:1,strokeColor:"red", strokeWeight:1, strokeOpacity:1}); //创建圆
+		var content = place_info[i][2];
+        // 内容中添加位置信息
+        content += ("<br/>"+"<b>Location: </b>"+place_info[i][1]+"N,"+place_info[i][0]+"E");
+		map.addOverlay(marker_place);               // 将标注添加到地图中
+		addClickHandler(content,marker_place);
+    }
+
+	function addClickHandler(content,marker,person2place){ 
+		marker.addEventListener("click",function(e){
+			    openInfo(content,e)
+                // console.log(person2place);
+                for(var i=0;i<person2place.length;i++){
+                    var curve = new BMapLib.CurveLine(person2place[i], {strokeColor:"blue", strokeWeight:3, strokeOpacity:0.5}); //创建弧线对象
+                    curve.name = 'curve';
+                    // curve.disableMassClear();
+                    map.addOverlay(curve); //添加到地图中
+                }
+            }
+		);
+	}
+	function openInfo(content,e){
+		var p = e.target;
+		var point_person = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
+		var infoWindow = new BMap.InfoWindow(content,opts);  // 创建信息窗口对象 
+		map.openInfoWindow(infoWindow,point_person); //开启信息窗口
+    }
+
+    // 清除曲线
+    function removeCurve(e){
+        // alert(e.point_person.lng + ", " + e.point_person.lat);
+        // map.clearOverlays();
+        var allOverlay = map.getOverlays();
+        allOverlay.map(item => {
+            if(item.name === 'curve') {
+                map.removeOverlay(item)
+            }
+        })
+    }
+    
+    // // 点击地图后显示当前经纬度
+    // function showInfo(e){
+	// 	alert(e.point.lng + ", " + e.point.lat);
+	// }
+	// map.addEventListener("click", showInfo);
+
+
+
+    
+</script>
+
+
