@@ -1,24 +1,20 @@
 # nCov-2020-SG
-##### 2020 Coronavirus in Singapore 
+#### 2020 Coronavirus in Singapore 
 
-##### 研究新型冠状病毒(nCov)在新加坡的传播情况——追踪与预测
+#### 研究新型冠状病毒(nCov)在新加坡的传播情况——追踪与预测
 
-##### web端开发
+#### web端开发
 
+- #### demo1：
 
+  Contact Tracing（接触者追踪）
 
-##### demo1：
+  百度地图API
 
-Contact Tracing（接触者追踪）
+- #### demo2：
 
-百度地图API
+  Pandemic Prediction（疫情爆发预测）
 
+  MapBox
 
-
-##### demo2：
-
-Pandemic Prediction（疫情爆发预测）
-
-MapBox
-
-热力图形式
+  热力图形式
