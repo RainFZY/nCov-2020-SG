@@ -17,7 +17,8 @@
         /* #l-map{height:100%;width:78%;float:left;border-right:2px solid #bcbcbc;}
 		#r-result{height:100%;width:20%;float:left;} */
     </style>
-    <link rel="stylesheet" href="style.css" type="text/css">
+    <!-- 加载css文件 -->
+    <link rel="stylesheet" href="demo1_style.css" type="text/css">
     <script type="text/javascript" src="http://api.map.baidu.com/api?v=3.0&ak=AKe8yGrTlVZG9xZOTBie4BGBTmiGNMxE"></script>
     <script type="text/javascript" src="http://api.map.baidu.com/library/CurveLine/1.5/src/CurveLine.min.js"></script>
 	<title>地图展示</title>
@@ -202,11 +203,11 @@
         })
     }
     
-    // 点击地图后显示当前经纬度
-    function showInfo(e){
-		alert(e.point.lng + ", " + e.point.lat);
-	}
-	map.addEventListener("click", showInfo);
+    // // 点击地图后显示当前经纬度
+    // function showInfo(e){
+	// 	alert(e.point.lng + ", " + e.point.lat);
+	// }
+	// map.addEventListener("click", showInfo);
 
 
 
