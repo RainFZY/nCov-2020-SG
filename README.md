@@ -11,7 +11,7 @@
 
   百度地图API
 
-  ![](https://github.com/RainFZY/nCov-2020-SG/images/demo1.png)
+  ![](https://github.com/RainFZY/nCov-2020-SG/blob/master/images/demo1.png)
 
 - #### demo2：
 
