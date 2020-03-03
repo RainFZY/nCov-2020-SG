@@ -11,6 +11,8 @@
 
   百度地图API
 
+  ![](https://github.com/RainFZY/nCov-2020-SG/images/demo1.png)
+
 - #### demo2：
 
   Pandemic Prediction（疫情爆发预测）
