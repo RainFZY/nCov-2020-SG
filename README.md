@@ -5,9 +5,7 @@
 
 #### web端开发
 
-- #### demo1：
-
-  Contact Tracing（接触者追踪）
+- #### demo1 - Contact Tracing（接触者追踪）：
 
   疫情地图，点击红色点（感染者）显示其信息（感染者所处区域、去过的地方、交通工具等），点击蓝色点（感染者去过的区域）显示地点信息
 
@@ -15,10 +13,14 @@
 
   ![](https://github.com/RainFZY/nCov-2020-SG/blob/master/images/demo1.png)
 
-- #### demo2：
+- #### demo2 - Pandemic Prediction（疫情爆发预测）：
 
-  Pandemic Prediction（疫情爆发预测）
+  地图资源、工具：MapBox
 
-  MapBox
+  JavaScript库：jQuery
 
-  热力图形式
+  以热力图形式显示过去一周的感染数据以及未来两周的预测感染情况
+  
+  在显示整个国家的总体情况的同时，以新加坡的55个区为单位对每个区域进行单独统计
+  
+  ![](https://github.com/RainFZY/nCov-2020-SG/blob/master/images/demo2.png)
