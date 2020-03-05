@@ -5,6 +5,7 @@
     <title>Pandemic Prediction</title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.1.1/mapbox-gl.js'></script>
+    <script src="./jquery.min.js"></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.1.1/mapbox-gl.css' rel='stylesheet' />
     <style>
         body { margin:0; padding:0; }
@@ -17,7 +18,7 @@
 .information {
     font: 10px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
     position: absolute;
-    width: 25%;
+    width: 22%;
     top: 0;
     right: 0;
     padding: 10px;
@@ -76,8 +77,9 @@ cursor: ew-resize;
 <div class='map-overlay top'>
     <div class='map-overlay-inner'>
         <h2>Pandemic Prediction</h2>
-        <label id='month'></label>
-        <input id='slider' type='range' min='0' max='14' step='1' value='0' />
+        <!-- 滑块上的日期差显示 -->
+        <label id='date'></label>
+        <input id='slider' type='range' min='0' max='21' step='1' value='7' />
     </div>
     <div class='map-overlay-inner'>
         <div id='legend' class='legend'>
@@ -90,19 +92,27 @@ cursor: ew-resize;
 <div class='information'>
     <div class='information-inner'>
         <h2>Data: 
-            <span style="color: red;">27th Feb</span>
+            <span style="color: red;"; id="getDate">
+                <!-- <script type="text/javascript">
+                    var date = new Date();
+                    document.write(date.getFullYear() + "年" + (date.getMonth() + 1) 
+                    + "月" + date.getDate() + "日" + " 星期" + "日一二三四五六".charAt(date.getDay()));
+                </script> -->
+            </span>
         </h2>
         <h2>Total Population: 5.612 million</h2>
         <h2>Summary: </h2>
         <h3>Total number of 
             <span style="color: red;">infected</span> 
-            cases predicted: 
+            <span id="text1">cases: </span>
+            <!-- cases predicted:  -->
             <span style="color: red;">98</span>
             <span style="color: blue;">(+50)</span>
         </h3>
         <h3>Total number of 
             <span style="color: red;">suspected</span> 
-            cases predicted: 
+            <span id="text2">cases: </span>
+            <!-- cases predicted:  -->
             <span style="color: red;">200</span>
             <span style="color: blue;">(+98)</span>
         </h3>
