@@ -5,7 +5,7 @@
     <title>Pandemic Prediction</title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.1.1/mapbox-gl.js'></script>
-    <script src="./jquery.min.js"></script>
+    <script src="../jquery.min.js"></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.1.1/mapbox-gl.css' rel='stylesheet' />
     <style>
         body { margin:0; padding:0; }
@@ -106,6 +106,12 @@ width: 10px;
         <label id='date'></label>
         <input id='slider' type='range' min='0' max='21' step='1' value='7' />
     </div>
+    <div class='map-overlay-inner'>
+        <div id='legend' class='legend'>
+            <div class='bar'></div>
+            <div>Magnitude</div>
+        </div>
+    </div>
 </div>
 
 <div class='information'>
@@ -138,26 +144,13 @@ width: 10px;
     </div>
 </div>
 
-<div id='state-legend' class='legend2'>
-    <h4>Infected Cases</h4>
-    <div><span style='background-color: #723122'></span>40</div>
-    <div><span style='background-color: #8B4225'></span>35</div>
-    <div><span style='background-color: #A25626'></span>30</div>
-    <div><span style='background-color: #B86B25'></span>25</div>
-    <div><span style='background-color: #CA8323'></span>20</div>
-    <div><span style='background-color: #DA9C20'></span>15</div>
-    <div><span style='background-color: #E6B71E'></span>10</div>
-    <div><span style='background-color: #EED322'></span>5</div>
-    <div><span style='background-color: #F2F12D'></span>0</div>
-</div>
-
 
 <script src='https://d3js.org/d3.v3.min.js' charset='utf-8'></script>
 <!-- <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
 <script>
     var bbox = turf.bbox(features);
 </script> -->
-<script src="demo2_v2.js"></script>
+<script src="demo2_v1.js"></script>
 
 
 </body>

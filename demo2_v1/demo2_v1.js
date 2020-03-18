@@ -27,8 +27,8 @@ var dates = ['-7 Days','-6 Days','-5 Days','-4 Days','-3 Days','-2 Days','-1 Day
 function filterBy(date) {
  
     var filters = ['==', 'date', date];
-    map.setFilter('earthquakes-heat', filters);
-    map.setFilter('earthquakes-point', filters);
+    map.setFilter('heat', filters);
+    map.setFilter('point', filters);
     
     // Set the label to the date
     document.getElementById('date').textContent = dates[date];
@@ -46,7 +46,7 @@ map.on('load', function() {
 
     var data =  points_data
     
-    map.addSource('earthquakes', {
+    map.addSource('nCov-sg', {
     type: 'geojson',
     data: {
         "type": "FeatureCollection",
@@ -59,9 +59,9 @@ map.on('load', function() {
 
     // 热层
     map.addLayer({
-        "id": "earthquakes-heat", 
+        "id": "heat", 
         "type": "heatmap",
-        "source": "earthquakes",
+        "source": "nCov-sg",
         "maxzoom": 20, // 改这里
         "paint": {
             // Increase the heatmap weight based on frequency and property magnitude
@@ -124,9 +124,9 @@ map.on('load', function() {
 
     // 点层
     map.addLayer({
-        "id": "earthquakes-point",
+        "id": "point",
         "type": "circle",
-        "source": "earthquakes",
+        "source": "nCov-sg",
         "minzoom": 7,
         "paint": {
             // Size circle radius by earthquake magnitude and zoom level
@@ -179,10 +179,8 @@ map.on('load', function() {
         type: 'geojson',
         // chrome访问本地文件：https://blog.csdn.net/zhang_zhenwei/article/details/102486992?tdsourcetag=s_pctim_aiomsg
         // 不然无法加载data，提示CORS跨域故障，只能在js里面加入data，很麻烦
-        data: './data/MP14_PLNG_AREA_WEB_PL.geojson'
-                  
-    }
-    )
+        data: '../data/MP14_PLNG_AREA_WEB_PL.geojson'   
+    })
     // 区域划分线层
     map.addLayer({                 /* 为地图添加layer */
         "id": "district",             /* layer id是route */

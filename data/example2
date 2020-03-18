@@ -1,0 +1,28 @@
+{
+"bounds":[-179.14734,-14.552549,179.77847,71.352561],
+"center":[0.3155649999999923,28.400005999999998,2],
+"created":1453940060873,
+"filesize":13353583,
+"format":"pbf",
+"id":"mapbox.660ui7x6",
+"mapbox_logo":true,
+"maxzoom":8,
+"minzoom":2,
+"modified":1456356909998,
+"name":"state_county_population_2014_cen",
+"private":false,
+"scheme":"xyz",
+"tilejson":"2.2.0",
+"tiles":["http://a.tiles.mapbox.com/v4/mapbox.660ui7x6/{z}/{x}/{y}.vector.pbf?access_token=pk.eyJ1IjoicmFpbjNmenkiLCJhIjoiY2s2dDFycDJuMDR0dzNsbzRicmpmODRhNiJ9.1_na-eXgpWP7DbxkbZyJ2Q","http://b.tiles.mapbox.com/v4/mapbox.660ui7x6/{z}/{x}/{y}.vector.pbf?access_token=pk.eyJ1IjoicmFpbjNmenkiLCJhIjoiY2s2dDFycDJuMDR0dzNsbzRicmpmODRhNiJ9.1_na-eXgpWP7DbxkbZyJ2Q"],
+"vector_layers":[{
+	"description":"",
+	"fields":{"isState":"Boolean","name":"String","population":"Number","state":"Number"},
+	"id":"state_county_population_2014_cen",
+	"maxzoom":22,
+	"minzoom":0,
+	"source":"mapbox.660ui7x6",
+	"source_name":"state_county_population_2014_cen"
+}],
+"version":"1.0.0",
+"webpage":"http://a.tiles.mapbox.com/v4/mapbox.660ui7x6/page.html?access_token=pk.eyJ1IjoicmFpbjNmenkiLCJhIjoiY2s2dDFycDJuMDR0dzNsbzRicmpmODRhNiJ9.1_na-eXgpWP7DbxkbZyJ2Q"
+}
