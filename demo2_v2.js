@@ -86,17 +86,24 @@ map.on('load', function() {
             'fill-opacity': 0.4
         }
     });
-    
-    count = 0
+
+
+    count_add = 0
+    count_remove = 0
     // 点击区域显示信息
     map.on('click', "district", function (e) {
+
+        // console.log(e.features[0].properties.lng)
+        // console.log(typeof(e.features[0].properties.lng))
+
 
         new mapboxgl.Popup()
         .setLngLat(e.lngLat)
         .setHTML(
             '<font size="2" color="blue">' + e.features[0].properties.Name + '</font>'+ '<br>' + 
             'Number of infected cases: ' + 
-            '<font size="2" color="red">' + e.features[0].properties.Number + '</font>'
+            '<font size="2" color="red">' + e.features[0].properties.Number + '</font>' + '<br>'
+            // 'Crowd moved to: ' + e.features[0].properties.move
         )
         .addTo(map);
         
@@ -104,7 +111,11 @@ map.on('load', function() {
         // console.log(e.features[0].properties.Center)
         
         // 清除上一次点击生成的layer
-        if (map.getLayer('arrow' + (count - 1).toString())) map.removeLayer('arrow' + (count - 1).toString());
+        for(i=0;i<3;i++){
+            if (map.getLayer('arrow' + (count_remove - 3).toString())) map.removeLayer('arrow' + (count_remove - 3).toString());
+            count_remove += 1;
+        }
+        
 
         // var line = turf.lineString([
         //     [103.79974939342134, 1.3794621339721118],
@@ -113,42 +124,62 @@ map.on('load', function() {
           
         // var curved = turf.bezierSpline(line);
         // console.log(curved.geometry.coordinates)
-
-        map.addLayer({
-            "id": "arrow" + count.toString(),
-            "type": "line",
-            "source": {
-                "type": "geojson",
-                "data": {
-                    "type": "Feature",
-                    "properties": {},
-                    "geometry": {
-                        "type": "LineString",
-                        "coordinates": [
-                            [Number(e.features[0].properties.lng), Number(e.features[0].properties.lat)],
-                            [103.66 + 0.27 * Math.random(), 1.3 + 0.11 * Math.random()],
-                            [Number(e.features[0].properties.lng), Number(e.features[0].properties.lat)],
-                            [103.66 + 0.27 * Math.random(), 1.3 + 0.11 * Math.random()],
-                            [Number(e.features[0].properties.lng), Number(e.features[0].properties.lat)],
-                            [103.66 + 0.27 * Math.random(), 1.3 + 0.11 * Math.random()]
-                            // [103.79974939342134, 1.3794621339721118]
-                        ]
-                    }
+        
+        for(i=0;i<3;i++){
+            map.addLayer({
+                "id": "arrow" + count_add.toString(),
+                "type": "line",
+                "source": {
+                    "type": "geojson",
+                    "data": {
+                        "type": "Feature",
+                        "properties": {"Number":e.features[0].properties.Number},
+                        "geometry": {
+                            "type": "LineString",
+                            "coordinates": [
+                                [e.features[0].properties.lng, e.features[0].properties.lat],
+                                [103.66 + 0.27 * Math.random(), 1.3 + 0.11 * Math.random()],
+                                // [e.features[0].properties.move[0], e.features[0].properties.move[1]]
+                                // [103.79974939342134, 1.3794621339721118]
+                            ],
+                            
+                            
+                        }
+                    },
+                    "lineMetrics": true
                 },
-                "lineMetrics": true
-            },
-            "layout": {
-                "line-join": "round",
-                "line-cap": "round"
-            },
-            "paint": {
-                "line-color": "#FF4040",
-                "line-width": 8,
-                'line-opacity': .5
-            }
-        });
+                "layout": {
+                    "line-join": "round",
+                    "line-cap": "round"
+                },
+                // "paint": {
+                //     "line-color": "#FF4040",
+                //     "line-width": 8,
+                //     'line-opacity': .5
+                // }
+                'paint': {
+                    'line-color': [
+                        'interpolate',
+                        ['linear'],
+                        ['get', 'Number'],
+                        0, '#F2F12D',
+                        5, '#EED322',
+                        10, '#E6B71E',
+                        15, '#DA9C20',
+                        20, '#CA8323',
+                        25, '#B86B25',
+                        30, '#A25626',
+                        35, '#8B4225',
+                        40, '#723122'
+                    ],
+                    'line-opacity': 1,
+                    "line-width": 8
+                }
+            });
 
-        count += 1
+            count_add += 1;
+        }
+
     });
         
     // Change the cursor to a pointer when the mouse is over the states layer.
