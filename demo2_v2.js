@@ -146,17 +146,18 @@ map.on('load', function() {
     }
 
     move_to = {
-        "1":[2,3,4],
-        "2":[10,11],
-        "3":[],
-        "4":[1,2,3,5,6]
+        "1":{"2":1,"3":7,"4":11},
+        "2":{"4":2,"3":3},
+        "3":{},
+        "4":{"1":1,"2":2,"3":3},
+
     }
     // console.log(district_center["1"][0])
 
 
 
     layer_index = 0 // 给move箭头的layer计数，从1开始一直累加
-    move_num = 0 // 每个区域向外指的箭头的个数，初始化为0
+    line_num = 0 // 每个区域向外指的箭头的个数，初始化为0
     // 点击区域显示信息
     map.on('click', "district", function (e) {
 
@@ -178,26 +179,25 @@ map.on('load', function() {
         // console.log(e.features[0].properties.Center)
         
         // 清除上一次点击生成的layer
-        for(i = 0; i < move_num; i++){
+        for(i = 0; i < line_num; i++){
             if (map.getLayer('arrow' + (layer_index - i).toString())) {
-                console.log("yes")
-                console.log(layer_index - i)
+                // console.log("yes")
+                // console.log(layer_index - i)
                 map.removeLayer('arrow' + (layer_index - i).toString());
             }
         }
         
-
-        // var line = turf.lineString([
-        //     [103.79974939342134, 1.3794621339721118],
-        //     [103.81,1.35],
-        //   ]);
-          
-        // var curved = turf.bezierSpline(line);
-        // console.log(move_to[e.features[0].properties.Number].length)
-        move_num = move_to[e.features[0].properties.Number].length
-        for(i = 0; i < move_num; i++){
+        district_index = e.features[0].properties.Number
+        console.log("--------------------")
+        console.log("District", district_index, ":")
+        line_num = Object.keys(move_to[district_index]).length
+        for(i = 0; i < line_num; i++){
             layer_index += 1;
-            console.log(layer_index)
+
+            move_to_district_index = Object.keys(move_to[district_index])[i]
+            move_people_num = move_to[district_index][Object.keys(move_to[district_index])[i]]
+            console.log("To No.", move_to_district_index, "Number: ", move_people_num)
+
             map.addLayer({
                 "id": "arrow" + layer_index.toString(),
                 "type": "line",
@@ -205,12 +205,16 @@ map.on('load', function() {
                     "type": "geojson",
                     "data": {
                         "type": "Feature",
-                        "properties": {"Number":e.features[0].properties.Number},
+                        "properties": {"Number": move_people_num},
                         "geometry": {
                             "type": "LineString",
                             "coordinates": [
-                                [district_center[e.features[0].properties.Number][0], district_center[e.features[0].properties.Number][1]],
-                                [district_center[move_to[e.features[0].properties.Number][i]][0], district_center[move_to[e.features[0].properties.Number][i]][1]]
+                                [district_center[district_index][0], district_center[district_index][1]],
+                                // [district_center[move_to[district_index][i]][0], district_center[move_to[district_index][i]][1]]
+                                [
+                                    district_center[move_to_district_index][0], 
+                                    district_center[move_to_district_index][1]
+                                ]
                                 // [103.66 + 0.27 * Math.random(), 1.3 + 0.11 * Math.random()],
                                 // [(e+1).features[0].properties.lng, (e+1).features[0].properties.lat]
                                 // [103.79974939342134, 1.3794621339721118]
