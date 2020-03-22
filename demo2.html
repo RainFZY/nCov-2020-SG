@@ -11,89 +11,12 @@
         body { margin:0; padding:0; }
         #map { position:absolute; top:0; bottom:0; width:100%; }
     </style>
+    <link rel="stylesheet" href="demo2_v2.css" type="text/css">
 </head>
 <body>
 
 <style>
-.information {
-    font: 10px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
-    position: absolute;
-    width: 22%;
-    top: 0;
-    right: 0;
-    padding: 10px;
-}
 
-.information-inner {
-    background-color: #fff;
-    box-shadow:0 1px 2px rgba(0, 0, 0, 0.20);
-    border-radius: 3px;
-    padding: 10px;
-    margin-bottom: 10px;
-}
-
-.map-overlay {
-font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
-position: absolute;
-width: 25%;
-top: 0;
-left: 0;
-padding: 10px;
-}
-    
-.map-overlay .map-overlay-inner {
-background-color: #fff;
-box-shadow:0 1px 2px rgba(0, 0, 0, 0.20);
-border-radius: 3px;
-padding: 10px;
-margin-bottom: 10px;
-}
-    
-.map-overlay h2 {
-line-height: 24px;
-display: block;
-margin: 0 0 10px;
-}
-    
-.map-overlay .legend .bar {
-height: 10px;
-width: 100%;
-/* bar的颜色渐变 */
-background: linear-gradient(to right, rgba(33,102,172,0), rgb(178,24,43)); 
-}
-    
-.map-overlay input {
-background-color: transparent;
-display: inline-block;
-width: 100%;
-position: relative;
-margin: 0;
-cursor: ew-resize;
-}
-
-.legend2 {
-background-color: #fff;
-border-radius: 3px;
-bottom: 30px;
-box-shadow: 0 1px 2px rgba(0,0,0,0.10);
-font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
-padding: 10px;
-position: absolute;
-right: 10px;
-z-index: 1;
-}
- 
-.legend2 h4 {
-margin: 0 0 10px;
-}
- 
-.legend2 div span {
-border-radius: 50%;
-display: inline-block;
-height: 10px;
-margin-right: 5px;
-width: 10px;
-}
 
 </style>
  
@@ -138,7 +61,7 @@ width: 10px;
     </div>
 </div>
 
-<div id='state-legend' class='legend2'>
+<div class='legend2'>
     <h4>Infected Cases</h4>
     <div><span style='background-color: #723122'></span>40</div>
     <div><span style='background-color: #8B4225'></span>35</div>
@@ -148,6 +71,20 @@ width: 10px;
     <div><span style='background-color: #DA9C20'></span>15</div>
     <div><span style='background-color: #E6B71E'></span>10</div>
     <div><span style='background-color: #EED322'></span>5</div>
+    <div><span style='background-color: #F2F12D'></span>0</div>
+</div>
+
+
+<div class='legend3'>
+    <h4>Moving Cases</h4>
+    <div><span style='background-color: #723122'></span>15</div>
+    <div><span style='background-color: #8B4225'></span>13</div>
+    <div><span style='background-color: #A25626'></span>11</div>
+    <div><span style='background-color: #B86B25'></span>9</div>
+    <div><span style='background-color: #CA8323'></span>7</div>
+    <div><span style='background-color: #DA9C20'></span>5</div>
+    <div><span style='background-color: #E6B71E'></span>3</div>
+    <div><span style='background-color: #EED322'></span>1</div>
     <div><span style='background-color: #F2F12D'></span>0</div>
 </div>
 
