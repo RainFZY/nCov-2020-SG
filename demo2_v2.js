@@ -16,17 +16,38 @@ var dates = ['-7 Days','-6 Days','-5 Days','-4 Days','-3 Days','-2 Days','-1 Day
     '+8 Day','+9 Days','+10 Days','+11 Days','+12 Days','+13 Days','+14 Days',
 ];
 
+var move_data_array = [{},{},{},{},{},{},{}]
+var move_data = null;
+
+for(i = 0; i <= 1; i++){
+    $.ajax({
+        url: './data/day' + i.toString() + '.json',
+        async: false,
+        success: function (data) {
+            move_data = data;
+        }
+    });
+    move_data = JSON.parse(move_data); // 把读取到的string格式转化成json对象
+    move_data_array.push(move_data)
+}
+
+
+// console.log(district_center["1"][0])
+
+
 function filterBy(date) {
      
     // Set the label to the date
     document.getElementById('date').textContent = dates[date];
-    // console.log(date)
+    console.log(date)
 
     // 根据拖动条显示具体日期
     var day = new Date();
     day.setDate(day.getDate() + (date - 7));
     $("#getDate").html(day.getFullYear() + "." + (day.getMonth() + 1) 
     + "." + day.getDate() + " " + ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"][day.getDay()]);
+
+    move_data = move_data_array[date]
 }
 
 
@@ -146,19 +167,6 @@ map.on('load', function() {
     }
 
 
-    var move_data = null;
-
-    $.ajax({
-        url: './data/weekend_27.json',
-        async: false,
-        success: function (data) {
-            move_data = data;
-        }
-    });
-    move_data = JSON.parse(move_data); // 把读取到的string格式转化成json对象
-    // console.log(district_center["1"][0])
-
-
 
     layer_index = 0 // 给move箭头的layer计数，从1开始一直累加
     line_num = 0 // 每个区域向外指的箭头的个数，初始化为0
@@ -259,15 +267,16 @@ map.on('load', function() {
                         ['linear'],
                         ['get', 'Number'],
                         0, 'rgba(255,255,255,0)',
-                        0.001, '#F2F12D',
-                        0.01, '#EED322',
-                        0.02, '#E6B71E',
-                        0.03, '#DA9C20',
-                        0.05, '#CA8323',
-                        0.06, '#B86B25',
-                        0.07, '#A25626',
-                        0.08, '#8B4225',
-                        0.09, '#723122'
+                        0.02, 'rgba(255,255,255,0)',
+                        0.02001, '#F2F12D',
+                        0.03, '#EED322',
+                        0.04, '#E6B71E',
+                        0.05, '#DA9C20',
+                        0.06, '#CA8323',
+                        0.07, '#B86B25',
+                        0.08, '#A25626',
+                        0.09, '#8B4225',
+                        0.1, '#723122'
                     ],
                     'line-opacity': 1,
                     "line-width": 8
