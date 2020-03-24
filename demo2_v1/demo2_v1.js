@@ -27,6 +27,7 @@ var dates = ['-7 Days','-6 Days','-5 Days','-4 Days','-3 Days','-2 Days','-1 Day
 function filterBy(date) {
  
     var filters = ['==', 'date', date];
+    // 分别对两个层进行filt
     map.setFilter('heat', filters);
     map.setFilter('point', filters);
     

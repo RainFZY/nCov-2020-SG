@@ -19,6 +19,7 @@ var dates = ['-7 Days','-6 Days','-5 Days','-4 Days','-3 Days','-2 Days','-1 Day
 var move_data_array = [{},{},{},{},{},{},{}]
 var move_data = null;
 
+// 添加数据
 for(i = 0; i <= 1; i++){
     $.ajax({
         url: './data/day' + i.toString() + '.json',
@@ -34,12 +35,12 @@ for(i = 0; i <= 1; i++){
 
 // console.log(district_center["1"][0])
 
-
+// 根据滑条的date的filter
 function filterBy(date) {
      
     // Set the label to the date
     document.getElementById('date').textContent = dates[date];
-    console.log(date)
+    // console.log(date)
 
     // 根据拖动条显示具体日期
     var day = new Date();
@@ -48,6 +49,10 @@ function filterBy(date) {
     + "." + day.getDate() + " " + ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"][day.getDay()]);
 
     move_data = move_data_array[date]
+
+    var filters = ['==', 'date', date];
+    // 分别对两个层进行filt
+    map.setFilter('district-heat', filters);
 }
 
 
@@ -75,7 +80,7 @@ map.on('load', function() {
             // "line-width": 2        /* 线条宽度 */
         }
     });
-
+    // 区域热力层
     map.addLayer({
         'id': 'district-heat',
         'type': 'fill',
@@ -173,19 +178,7 @@ map.on('load', function() {
     // 点击区域显示信息
     map.on('click', "district", function (e) {
 
-        // console.log(e.features[0].properties.lng)
-        // console.log(typeof(e.features[0].properties.lng))
 
-
-        new mapboxgl.Popup()
-        .setLngLat(e.lngLat)
-        .setHTML(
-            '<font size="2" color="blue">' + e.features[0].properties.Name + '</font>'+ '<br>' + 
-            'Number of infected cases: ' + 
-            '<font size="2" color="red">' + e.features[0].properties.Number + '</font>' + '<br>'
-            // 'Crowd moved to: ' + e.features[0].properties.move
-        )
-        .addTo(map);
         
         // alert(e.lngLat); // 点击地图后显示当前经纬度
         // console.log(e.features[0].properties.Center)
@@ -199,17 +192,18 @@ map.on('load', function() {
             }
         }
         
-        district_index = e.features[0].properties.Number
+        district_index = e.features[0].properties.Index
         console.log("--------------------")
         console.log("District", district_index, ":")
-        console.log(move_data)
-        console.log(typeof(move_data))
+        // console.log(move_data)
+        // console.log(typeof(move_data))
 
         // 提取该区域对应的人流移动字典中移动人数大于0的区域的标号，放入一个数组中
         valid_move_index = []
         for(j = 0; j < Object.keys(move_data[district_index]).length; j++) {
             index = Object.keys(move_data[district_index])[j]
-            if ( move_data[district_index][index]> 0){
+            // 筛选相关性系数大于0.02的连接线
+            if ( move_data[district_index][index]> 0.02){
                 valid_move_index.push(j+1)
             }
         } 
@@ -218,6 +212,7 @@ map.on('load', function() {
         // line_num = Object.keys(move_data[district_index]).length
         // 点击后出现的line的数量，对应该区域有人流移动的区域个数
         line_num = valid_move_index.length
+        popup_inf = ''
         // 每次添加一条直线作为一个layer
         for(i = 0; i < line_num; i++){
             layer_index += 1;
@@ -226,6 +221,9 @@ map.on('load', function() {
             move_to_district_index = valid_move_index[i]
             correlation_coefficient = move_data[district_index][move_to_district_index]
             console.log("To No.", move_to_district_index, "Correlation Coefficient: ", correlation_coefficient)
+            popup_inf += '<font size="2" color="black">' + "To district No." + '</font>' +
+                '<b>' + move_to_district_index.toString()  + '</b>' + ": " +
+                '<font size="2" color="orange">' + correlation_coefficient.toString() + '</font>' + '<br>'
 
             map.addLayer({
                 "id": "arrow" + layer_index.toString(),
@@ -234,7 +232,7 @@ map.on('load', function() {
                     "type": "geojson",
                     "data": {
                         "type": "Feature",
-                        "properties": {"Number": correlation_coefficient},
+                        "properties": {"Correlation Coefficient": correlation_coefficient},
                         "geometry": {
                             "type": "LineString",
                             "coordinates": [
@@ -265,7 +263,7 @@ map.on('load', function() {
                     'line-color': [
                         'interpolate',
                         ['linear'],
-                        ['get', 'Number'],
+                        ['get', 'Correlation Coefficient'],
                         0, 'rgba(255,255,255,0)',
                         0.02, 'rgba(255,255,255,0)',
                         0.02001, '#F2F12D',
@@ -283,6 +281,18 @@ map.on('load', function() {
                 }
             });
         }
+
+        new mapboxgl.Popup()
+        .setLngLat(e.lngLat)
+        .setHTML(
+            '<font size="2" color="blue">' + 'District No: ' + e.features[0].properties.Index + '<br>' + 
+            e.features[0].properties.Name + '</font>'+ '<br>' + 
+            'Number of infected cases: ' + 
+            '<font size="2" color="red">' + e.features[0].properties.Index + '</font>' + '<br>' +
+            popup_inf
+            // 'Crowd moved to: ' + e.features[0].properties.move
+        )
+        .addTo(map);
 
     });
         
