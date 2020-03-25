@@ -171,20 +171,74 @@ map.on('load', function() {
         "55":[103.84279797524732, 1.2906396500863195],
     }
 
-
+    district_name = {
+        "1":"BUKIT MERAH",
+        "2":"CHOA CHU KANG",
+        "3":"BUKIT TIMAH",
+        "4":"CENTRAL WATER CATCHMENT",
+        "5":"CHANGI",
+        "6":"TENGAH",
+        "7":"PASIR RIS",
+        "8":"SEMBAWANG",
+        "9":"BEDOK",
+        "10":"BOON LAY",
+        "11":"WESTERN WATER CATCHMENT",
+        "12":"YISHUN",
+        "13":"DOWNTOWN CORE",
+        "14":"NEWTON",
+        "15":"ORCHARD",
+        "16":"WOODLANDS",
+        "17":"MARINA SOUTH",
+        "18":"JURONG EAST",
+        "19":"LIM CHU KANG",
+        "20":"BUKIT PANJANG",
+        "21":"MARINE PARADE",
+        "22":"NORTH-EASTERN ISLANDS",
+        "23":"PIONEER",
+        "24":"QUEENSTOWN",
+        "25":"SOUTHERN ISLANDS",
+        "26":"TUAS",
+        "27":"KALLANG",
+        "28":"SIMPANG",
+        "29":"TAMPINES",
+        "30":"WESTERN ISLANDS",
+        "31":"STRAITS VIEW",
+        "32":"BISHAN",
+        "33":"BUKIT BATOK",
+        "34":"CHANGI BAY",
+        "35":"CLEMENTI",
+        "36":"GEYLANG",
+        "37":"NOVENA",
+        "38":"PAYA LEBAR",
+        "39":"SELETAR",
+        "40":"SENGKANG",
+        "41":"SERANGOON",
+        "42":"ANG MO KIO",
+        "43":"TOA PAYOH",
+        "44":"MARINA EAST",
+        "45":"MUSEUM",
+        "46":"HOUGANG",
+        "47":"MANDAI",
+        "48":"PUNGGOL",
+        "49":"JURONG WEST",
+        "50":"SUNGEI KADUT",
+        "51":"TANGLIN",
+        "52":"OUTRAM",
+        "53":"RIVER VALLEY",
+        "54":"ROCHOR",
+        "55":"SINGAPORE RIVER",
+    }
 
     layer_index = 0 // 给move箭头的layer计数，从1开始一直累加
     line_num = 0 // 每个区域向外指的箭头的个数，初始化为0
     // 点击区域显示信息
     map.on('click', "district", function (e) {
 
-
-        
         // alert(e.lngLat); // 点击地图后显示当前经纬度
         // console.log(e.features[0].properties.Center)
         
         // 清除上一次点击生成的layer
-        for(i = 0; i < line_num; i++){
+        for(i = 0; i < 3; i++){
             if (map.getLayer('arrow' + (layer_index - i).toString())) {
                 // console.log("yes")
                 // console.log(layer_index - i)
@@ -195,35 +249,40 @@ map.on('load', function() {
         district_index = e.features[0].properties.Index
         console.log("--------------------")
         console.log("District", district_index, ":")
-        // console.log(move_data)
-        // console.log(typeof(move_data))
 
-        // 提取该区域对应的人流移动字典中移动人数大于0的区域的标号，放入一个数组中
-        valid_move_index = []
-        for(j = 0; j < Object.keys(move_data[district_index]).length; j++) {
-            index = Object.keys(move_data[district_index])[j]
-            // 筛选相关性系数大于0.02的连接线
-            if ( move_data[district_index][index]> 0.02){
-                valid_move_index.push(j+1)
-            }
-        } 
-        // console.log(valid_move_index)
 
-        // line_num = Object.keys(move_data[district_index]).length
-        // 点击后出现的line的数量，对应该区域有人流移动的区域个数
-        line_num = valid_move_index.length
-        popup_inf = ''
+        // 提取该区域对应的人流移动字典中相关系数最大的三个的区域（不包括自己）的标号，放入一个数组中
+        var dict = move_data[district_index]
+        // Create items array
+        var items = Object.keys(dict).map(function(key) {
+            return [key, dict[key]];
+        });
+        // Sort the array based on the second element
+        items.sort(function(first, second) {
+            return second[1] - first[1];
+        });
+        // 取出value最大的2-4（排除自己）
+        max_move_array = items.slice(1, 4)
+        // console.log(max_move_array
+        var max_move_index = []
+        for(i = 0; i < 3; i++){
+            max_move_index.push(max_move_array[i][0])
+        }
+        // console.log(max_move_index);
+
+        popup_inf = '' // popup框的内容
         // 每次添加一条直线作为一个layer
-        for(i = 0; i < line_num; i++){
+        for(i = 0; i < 3; i++){
             layer_index += 1;
 
             // move_to_district_index = Object.keys(move_data[district_index])[i]
-            move_to_district_index = valid_move_index[i]
+            move_to_district_index = max_move_index[i]
             correlation_coefficient = move_data[district_index][move_to_district_index]
             console.log("To No.", move_to_district_index, "Correlation Coefficient: ", correlation_coefficient)
-            popup_inf += '<font size="2" color="black">' + "To district No." + '</font>' +
-                '<b>' + move_to_district_index.toString()  + '</b>' + ": " +
-                '<font size="2" color="orange">' + correlation_coefficient.toString() + '</font>' + '<br>'
+            
+            popup_inf += '<font size="2" color="black">' + "To " + '</font>' +
+                '<b>' + district_name[move_to_district_index] + '</b>' + ": " +
+                '<font size="2" color="orange">' + (correlation_coefficient * 100).toFixed(2).toString() + "%" + '</font>' + '<br>'
 
             map.addLayer({
                 "id": "arrow" + layer_index.toString(),
@@ -242,9 +301,6 @@ map.on('load', function() {
                                     district_center[move_to_district_index][0], 
                                     district_center[move_to_district_index][1]
                                 ]
-                                // [103.66 + 0.27 * Math.random(), 1.3 + 0.11 * Math.random()],
-                                // [(e+1).features[0].properties.lng, (e+1).features[0].properties.lat]
-                                // [103.79974939342134, 1.3794621339721118]
                             ],                                                    
                         }
                     },
@@ -282,20 +338,20 @@ map.on('load', function() {
             });
         }
 
-        new mapboxgl.Popup()
-        .setLngLat(e.lngLat)
-        .setHTML(
-            '<font size="2" color="blue">' + 'District No: ' + e.features[0].properties.Index + '<br>' + 
-            e.features[0].properties.Name + '</font>'+ '<br>' + 
+        var popup = new mapboxgl.Popup({className: 'popup', closeOnMove: true})
+        popup.setLngLat(e.lngLat)
+        popup.setHTML(
+            // '<font size="2" color="blue">' + 'District No: ' + e.features[0].properties.Index + '<br>' + 
+            '<font size="2" color="blue">' + e.features[0].properties.Name + '</font>'+ '<br>' + 
             'Number of infected cases: ' + 
             '<font size="2" color="red">' + e.features[0].properties.Index + '</font>' + '<br>' +
             popup_inf
             // 'Crowd moved to: ' + e.features[0].properties.move
         )
-        .addTo(map);
-
+        popup.setMaxWidth("500px")
+        popup.addTo(map)
     });
-        
+    
     // Change the cursor to a pointer when the mouse is over the states layer.
     map.on('mouseenter', "district", function () {
         map.getCanvas().style.cursor = 'pointer';
@@ -304,6 +360,7 @@ map.on('load', function() {
     // Change it back to a pointer when it leaves.
     map.on('mouseleave', "district", function () {
         map.getCanvas().style.cursor = '';
+        popup.remove();
     });
 
     filterBy(7);
@@ -320,6 +377,16 @@ map.on('load', function() {
             $("#text2").html("cases:");
         }
         // console.log(date)
+        
+        // 拖动滑条删除上一天的连线和popup框
+        for(i = 0; i < 3; i++){
+            if (map.getLayer('arrow' + (layer_index - i).toString())) {
+                // console.log("yes")
+                // console.log(layer_index - i)
+                map.removeLayer('arrow' + (layer_index - i).toString());
+            }
+        }
+        popup.remove();
     });
 
 });

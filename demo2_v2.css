@@ -16,91 +16,95 @@
 }
 
 .map-overlay {
-font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
-position: absolute;
-width: 25%;
-top: 0;
-left: 0;
-padding: 10px;
+    font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    position: absolute;
+    width: 25%;
+    top: 0;
+    left: 0;
+    padding: 10px;
 }
     
 .map-overlay .map-overlay-inner {
-background-color: #fff;
-box-shadow:0 1px 2px rgba(0, 0, 0, 0.20);
-border-radius: 3px;
-padding: 10px;
-margin-bottom: 10px;
+    background-color: #fff;
+    box-shadow:0 1px 2px rgba(0, 0, 0, 0.20);
+    border-radius: 3px;
+    padding: 10px;
+    margin-bottom: 10px;
 }
     
 .map-overlay h2 {
-line-height: 24px;
-display: block;
-margin: 0 0 10px;
+    line-height: 24px;
+    display: block;
+    margin: 0 0 10px;
 }
     
 .map-overlay .legend .bar {
-height: 10px;
-width: 100%;
-/* bar的颜色渐变 */
-background: linear-gradient(to right, rgba(33,102,172,0), rgb(178,24,43)); 
+    height: 10px;
+    width: 100%;
+    /* bar的颜色渐变 */
+    background: linear-gradient(to right, rgba(33,102,172,0), rgb(178,24,43)); 
 }
     
 .map-overlay input {
-background-color: transparent;
-display: inline-block;
-width: 100%;
-position: relative;
-margin: 0;
-cursor: ew-resize;
+    background-color: transparent;
+    display: inline-block;
+    width: 100%;
+    position: relative;
+    margin: 0;
+    cursor: ew-resize;
 }
 
 .legend2 {
-background-color: #fff;
-border-radius: 3px;
-bottom: 30px;
-box-shadow: 0 1px 2px rgba(0,0,0,0.10);
-font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
-padding: 10px;
-position: absolute;
-right: 10px;
-z-index: 1;
+    background-color: #fff;
+    border-radius: 3px;
+    bottom: 30px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.10);
+    font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    padding: 10px;
+    position: absolute;
+    right: 10px;
+    z-index: 1;
 }
  
 .legend2 h4 {
-margin: 0 0 10px;
+    margin: 0 0 10px;
 }
  
 .legend2 div span {
-border-radius: 50%;
-display: inline-block;
-height: 10px;
-margin-right: 5px;
-width: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    height: 10px;
+    margin-right: 5px;
+    width: 10px;
 }
 
 
 
 
 .legend3 {
-background-color: #fff;
-border-radius: 3px;
-bottom: 30px;
-box-shadow: 0 1px 2px rgba(0,0,0,0.10);
-font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
-padding: 10px;
-position: absolute;
-right: 125px;
-z-index: 1;
+    background-color: #fff;
+    border-radius: 3px;
+    bottom: 30px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.10);
+    font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    padding: 10px;
+    position: absolute;
+    right: 125px;
+    z-index: 1;
 }
  
 .legend3 h4 {
-margin: 0 0 10px;
+    margin: 0 0 10px;
 }
  
 .legend3 div span {
-border-radius: 50%;
-display: inline-block;
-height: 10px;
-margin-right: 5px;
-width: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    height: 10px;
+    margin-right: 5px;
+    width: 10px;
+}
+
+.popup {
+    opacity: 0.9;
 }
