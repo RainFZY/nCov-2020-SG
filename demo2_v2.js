@@ -32,6 +32,17 @@ for(i = 0; i <= 1; i++){
     move_data_array.push(move_data)
 }
 
+var number_data = null
+$.ajax({
+    url: './data/number_data.json',
+    async: false,
+    success: function (data) {
+        number_data = data;
+    }
+});
+number_data = JSON.parse(number_data)
+
+
 
 // console.log(district_center["1"][0])
 
@@ -47,6 +58,15 @@ function filterBy(date) {
     day.setDate(day.getDate() + (date - 7));
     $("#getDate").html(day.getFullYear() + "." + (day.getMonth() + 1) 
     + "." + day.getDate() + " " + ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"][day.getDay()]);
+
+    // 右上角的感染人数
+    $("#number").html(number_data[date][0]['Number'].toString())
+    number_increase = number_data[date][0]['Number'] - number_data[date-1][0]['Number']
+    $("#number_increase").html('(+' + number_increase.toString() + ')')
+    // 右上角疑似人数
+    $("#suspect_number").html(number_data[date][0]['SuspectNumber'].toString())
+    suspect_number_increase = number_data[date][0]['SuspectNumber'] - number_data[date-1][0]['SuspectNumber']
+    $("#suspect_number_increase").html('(+' + suspect_number_increase.toString() + ')')
 
     move_data = move_data_array[date]
 
@@ -341,6 +361,10 @@ map.on('load', function() {
                 }
             });
         }
+        
+
+        console.log(date)
+        console.log(e.features[0].properties.Index)
 
         popup
             .setLngLat(e.lngLat)
@@ -348,7 +372,7 @@ map.on('load', function() {
             // '<font size="2" color="blue">' + 'District No: ' + e.features[0].properties.Index + '<br>' + 
             '<font size="2" color="blue">' + e.features[0].properties.Name + '</font>'+ '<br>' + 
             'Number of infected cases: ' + 
-            '<font size="2" color="red">' + e.features[0].properties.Number + '</font>' + '<br>' +
+            '<font size="2" color="red">' + number_data[date][e.features[0].properties.Index]['Number'] + '</font>' + '<br>' +
             popup_inf
             // 'Crowd moved to: ' + e.features[0].properties.move
         )
@@ -367,10 +391,12 @@ map.on('load', function() {
         // popup.remove();
     });
 
+
+    var date = 7
     filterBy(7);
     // 滑条拖动事件
     document.getElementById('slider').addEventListener('input', function(e) {
-        var date = parseInt(e.target.value, 10);
+        date = parseInt(e.target.value, 10);
         filterBy(date);
         if(date > 7){
             $("#text1").html("cases predicted:");
@@ -381,6 +407,7 @@ map.on('load', function() {
             $("#text2").html("cases:");
         }
         // console.log(date)
+
         
         // 拖动滑条删除上一天的连线和popup框
         for(i = 0; i < 3; i++){
