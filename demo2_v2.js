@@ -16,33 +16,36 @@ var dates = ['-7 Days','-6 Days','-5 Days','-4 Days','-3 Days','-2 Days','-1 Day
     '+8 Day','+9 Days','+10 Days','+11 Days','+12 Days','+13 Days','+14 Days',
 ];
 
-var move_data_array = [{},{},{},{},{},{},{}]
-var move_data = null;
 
-// 添加数据
-for(i = 0; i <= 1; i++){
-    $.ajax({
-        url: './data/day' + i.toString() + '.json',
-        async: false,
-        success: function (data) {
-            move_data = data;
-        }
-    });
-    move_data = JSON.parse(move_data); // 把读取到的string格式转化成json对象
-    move_data_array.push(move_data)
-}
+// // 添加数据
+// var move_data_array = [{},{},{},{},{},{},{}]
+// var move_data = null;
+// for(i = 0; i <= 1; i++){
+//     $.ajax({
+//         url: './data/day' + i.toString() + '.json',
+//         async: false,
+//         success: function (data) {
+//             move_data = data;
+//         }
+//     });
+//     move_data = JSON.parse(move_data); // 把读取到的string格式转化成json对象
+//     move_data_array.push(move_data)
+// }
 
-var number_data = null
-$.ajax({
-    url: './data/number_data.json',
-    async: false,
-    success: function (data) {
-        number_data = data;
-    }
-});
-number_data = JSON.parse(number_data)
+// var number_data = null
+// $.ajax({
+//     url: './data/num_data1.json',
+//     async: false,
+//     success: function (data) {
+//         number_data = data;
+//     }
+// });
+// var number_data = JSON.parse(number_data)
 
 
+// line数据：move_data_array
+// number数据：number_data
+var move_data_array = [{},{},{},{},{},{},{}, day0, day1]
 
 // console.log(district_center["1"][0])
 
@@ -120,14 +123,14 @@ map.on('load', function() {
                 // 25, 'rgb(255,48,48)', // Firebrick1
                 // 35, 'rgb(178,34,34)', // Firebrick4
                 // 40, 'rgb(139,58,58)' // IndianRed4
-                0, '#F2F12D',
-                5, '#EED322',
-                10, '#E6B71E',
-                15, '#DA9C20',
-                20, '#CA8323',
-                25, '#B86B25',
-                30, '#A25626',
-                35, '#8B4225',
+                0, '#FFDAB9',
+                5, '#FFA07A',
+                10, '#FA8072',
+                15, '#EE6363',
+                20, '#FF3030',
+                25, '#CD2626',
+                30, '#CD0000',
+                35, '#8B1A1A',
                 40, '#723122'
             ],
             'fill-opacity': 0.4
@@ -345,19 +348,19 @@ map.on('load', function() {
                         ['linear'],
                         ['get', 'Correlation Coefficient'],
                         0, 'rgba(255,255,255,0)',
-                        0.02, 'rgba(255,255,255,0)',
-                        0.02001, '#F2F12D',
-                        0.03, '#EED322',
-                        0.04, '#E6B71E',
-                        0.05, '#DA9C20',
-                        0.06, '#CA8323',
-                        0.07, '#B86B25',
-                        0.08, '#A25626',
-                        0.09, '#8B4225',
-                        0.1, '#723122'
+                        0.04, 'rgba(255,255,255,0)',
+                        0.04001, '#F2F12D',
+                        0.05, '#EED322',
+                        0.06, '#E6B71E',
+                        0.07, '#DA9C20',
+                        0.08, '#CA8323',
+                        0.09, '#B86B25',
+                        0.1, '#A25626',
+                        0.11, '#8B4225',
+                        0.12, '#723122'
                     ],
                     'line-opacity': 1,
-                    "line-width": 8
+                    "line-width": correlation_coefficient * 100
                 }
             });
         }
