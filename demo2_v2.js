@@ -45,7 +45,30 @@ var dates = ['-7 Days','-6 Days','-5 Days','-4 Days','-3 Days','-2 Days','-1 Day
 
 // line数据：move_data_array
 // number数据：number_data
-var move_data_array = [{},{},{},{},{},{},{}, day0, day1]
+var move_data_array = [
+	day_7,
+	day_6,
+	day_5,
+	day_4,
+	day_3,
+	day_2,
+	day_1,
+	day0,
+	day1,
+	day2,
+	day3,
+	day4,
+	day5,
+	day6,
+	day7,
+	day8,
+	day9,
+	day10,
+	day11,
+	day12,
+	day13,
+	day14,
+]
 
 // console.log(district_center["1"][0])
 
@@ -87,7 +110,12 @@ map.on('load', function() {
         // chrome访问本地文件：https://blog.csdn.net/zhang_zhenwei/article/details/102486992?tdsourcetag=s_pctim_aiomsg
         // 不然无法加载data，提示CORS跨域故障，只能在js里面加入data，很麻烦
         // data: './data/MP14_PLNG_AREA_WEB_PL.geojson' 
-        data: './data/areas.geojson'  
+        // data: './data/areas.geojson' 
+        data: {
+            "type": "FeatureCollection",
+            "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+            "features": geojson
+        } 
     })
     // 区域划分线层
     map.addLayer({                 /* 为地图添加layer */
@@ -347,40 +375,88 @@ map.on('load', function() {
                         'interpolate',
                         ['linear'],
                         ['get', 'Correlation Coefficient'],
+                        // 0, 'rgba(255,255,255,0)',
+                        // 0.00001, 'rgba(255,255,255,0)',
+                        // 0.01, '#F2F12D',
+                        // 0.02, '#EED322',
+                        // 0.03, '#E6B71E',
+                        // 0.04, '#DA9C20',
+                        // 0.05, '#CA8323',
+                        // 0.06, '#B86B25',
+                        // 0.7, '#A25626',
+                        // 0.8, '#8B4225',
+                        // 0.9, '#723122'
                         0, 'rgba(255,255,255,0)',
-                        0.04, 'rgba(255,255,255,0)',
-                        0.04001, '#F2F12D',
-                        0.05, '#EED322',
-                        0.06, '#E6B71E',
-                        0.07, '#DA9C20',
-                        0.08, '#CA8323',
-                        0.09, '#B86B25',
-                        0.1, '#A25626',
-                        0.11, '#8B4225',
-                        0.12, '#723122'
+                        0.00001, 'rgba(255,255,255,0)',
+                        0.01, '#FFDAB9',
+                        0.02, '#FFA07A',
+                        0.03, '#FA8072',
+                        0.04, '#EE6363',
+                        0.05, '#FF3030',
+                        0.06, '#CD2626',
+                        0.7, '#CD0000',
+                        0.8, '#8B1A1A',
+                        0.9, '#723122'
                     ],
-                    'line-opacity': 1,
-                    "line-width": correlation_coefficient * 100
+                    'line-opacity': 0.8,
+                    "line-width": 7
                 }
             });
         }
         
+        // console.log(date)
+        // console.log(e.features[0].properties.Index)
+        
+        // predicted outbreak time
+        for (i = 0; i <= 21; i++) {
+			if (number_data[7][district_index]['Number'] <= 30) {
+				if (number_data[i][district_index]['Number'] > 30) {
+					var day = new Date()
+					day.setDate(day.getDate() + (i - 7))
+					times = day.getFullYear() + '.' + (day.getMonth() + 1) + '.' + day.getDate()
+					break
+				} else {
+					times = 'No outbreak'
+				}
+			} else {
+				times = 'The outbreak has occurred'
+			}
+        }
+        // predicted risk level
+		if (number_data[date][district_index]['TotalNumber'] > 50) {
+			risk = 'High'
+		} else if (number_data[date][district_index]['TotalNumber'] < 20) {
+			risk = 'Low'
+		} else {
+			risk = 'Medium'
+		}
 
-        console.log(date)
-        console.log(e.features[0].properties.Index)
+        if (date <= 7){
+            popup
+                .setLngLat(e.lngLat)
+                .setHTML(
+                    '<font size="2" color="blue">' + e.features[0].properties.Name + '</font>'+ '<br>' + 
+                    'Number of confirmed cases: ' + '<font size="2" color="red">' + number_data[date][e.features[0].properties.Index]['Number'] + '</font>' + '<br>' +
+                    'Number of infected cases: ' + '<font size="2" color="red">' + number_data[date][e.features[0].properties.Index]['SuspectNumber'] + '</font>' + '<br>' +
+                    'Total number of cases: ' + '<font size="2" color="red">' + number_data[date][e.features[0].properties.Index]['TotalNumber'] + '</font>' + '<br>' +
+                    'Predicted outbreak time: ' + '<font size="2" color="red">' + times + '</font>' + '<br>' +
+                    popup_inf
+                )
+                .setMaxWidth("500px")
+                .addTo(map)
+        } else{
+			popup
+				.setLngLat(e.lngLat)
+				.setHTML(
+					'<font size="2" color="blue">' + e.features[0].properties.Name + '</font>' + '<br>' +
+                    'Predicted risk level: ' + '<font size="2" color="red">' + risk + '</font>' + '<br>' +
+                    'Predicted outbreak time: ' + '<font size="2" color="red">' + times + '</font>' + '<br>' +
+					popup_inf
+				)
+				.setMaxWidth('500px')
+				.addTo(map)
+        }
 
-        popup
-            .setLngLat(e.lngLat)
-            .setHTML(
-            // '<font size="2" color="blue">' + 'District No: ' + e.features[0].properties.Index + '<br>' + 
-            '<font size="2" color="blue">' + e.features[0].properties.Name + '</font>'+ '<br>' + 
-            'Number of infected cases: ' + 
-            '<font size="2" color="red">' + number_data[date][e.features[0].properties.Index]['Number'] + '</font>' + '<br>' +
-            popup_inf
-            // 'Crowd moved to: ' + e.features[0].properties.move
-        )
-            .setMaxWidth("500px")
-            .addTo(map)
     });
     
     // Change the cursor to a pointer when the mouse is over the states layer.
