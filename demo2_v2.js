@@ -93,6 +93,10 @@ function filterBy(date) {
     $("#suspect_number").html(number_data[date][0]['SuspectNumber'].toString())
     suspect_number_increase = number_data[date][0]['SuspectNumber'] - number_data[date-1][0]['SuspectNumber']
     $("#suspect_number_increase").html('(+' + suspect_number_increase.toString() + ')')
+    // 右上角总人数
+    $('#total_number').html(number_data[date][0]['TotalNumber'].toString())
+    suspect_number_increase = number_data[date][0]['TotalNumber'] - number_data[date - 1][0]['TotalNumber']
+    $('#total_number_increase').html('(+' + suspect_number_increase.toString() + ')')
 
     move_data = move_data_array[date]
 
@@ -281,9 +285,7 @@ map.on('load', function() {
         "54":"SINGAPORE RIVER",
     }
 
-
     var popup = new mapboxgl.Popup({className: 'popup', closeOnMove: false, closeOnClick: false})
-
 
     layer_index = 0 // 给move箭头的layer计数，从1开始一直累加
     // 点击区域显示信息
@@ -486,7 +488,6 @@ map.on('load', function() {
             $("#text2").html("cases:");
         }
         // console.log(date)
-
         
         // 拖动滑条删除上一天的连线和popup框
         for(i = 0; i < 3; i++){
@@ -497,6 +498,7 @@ map.on('load', function() {
             }
         }
         popup.remove();
+
     });
 
 });
