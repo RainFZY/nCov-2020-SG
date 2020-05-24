@@ -11,7 +11,7 @@
 
   百度地图API
 
-  ![](https://github.com/RainFZY/nCov-2020-SG/tree/master/images/demo1.png)
+  ![](https://github.com/RainFZY/nCov-2020-SG/blob/master/images/demo1.png)
 
 - #### demo2 - Pandemic Prediction（疫情爆发预测）：
 
@@ -23,4 +23,4 @@
   
   在显示整个国家的总体情况的同时，以新加坡的55个区为单位对每个区域进行单独统计
   
-  ![](https://github.com/RainFZY/nCov-2020-SG/tree/master/images/demo2.png)
+  ![](https://github.com/RainFZY/nCov-2020-SG/blob/master/images/demo2.png)
