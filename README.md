@@ -36,12 +36,7 @@ web端开发
 
 
 
-<<<<<<< HEAD
-## Demo2 - Pandemic Prediction（疫情爆发预测）
-=======
 ## Demo2
->>>>>>> 7ac264e56b313eb2b90192f72c63b127aa9cc12d
-
 **Requirements**: 
 
 MapBox API
@@ -64,12 +59,8 @@ MapBox API
 
 
 
-<<<<<<< HEAD
-## Demo3 - Heat Map of Infected（感染者热力图）
-=======
-## Demo3
->>>>>>> 7ac264e56b313eb2b90192f72c63b127aa9cc12d
 
+## Demo3
 **Requirements**: 
 
 MapBox API
