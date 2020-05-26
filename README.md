@@ -2,9 +2,9 @@
 ## Table of Contents
 
 - [Background](#background)
-- [Demo1 - Contact Tracing（接触者追踪）](#Demo1 - Contact Tracing（接触者追踪）)
-- [Demo2 - Pandemic Prediction（疫情爆发预测）](#Demo2 - Pandemic Prediction（疫情爆发预测）)
-- [Demo3 - Heat Map of Infected（感染者热力图）](#Demo3 - Heat Map of Infected（感染者热力图）)
+- [Demo1 - Contact Tracing（接触者追踪）](#demo1)
+- [Demo2 - Pandemic Prediction（疫情爆发预测）](#demo2)
+- [Demo3 - Heat Map of Infected（感染者热力图）](#demo3)
 
 
 
@@ -20,7 +20,7 @@ web端开发
 
 
 
-## Demo1 - Contact Tracing（接触者追踪）
+## Demo1
 
 **Requirements**: 
 
@@ -36,7 +36,7 @@ web端开发
 
 
 
-## Demo2 - Pandemic Prediction（疫情爆发预测）：
+## Demo2
 
 **Requirements**: 
 
@@ -60,7 +60,7 @@ MapBox API
 
 
 
-## Demo3 - Heat Map of Infected（感染者热力图）：
+## Demo3
 
 **Requirements**: 
 
