@@ -180,7 +180,7 @@ map.on('load', function() {
         type: 'geojson',
         // chrome访问本地文件：https://blog.csdn.net/zhang_zhenwei/article/details/102486992?tdsourcetag=s_pctim_aiomsg
         // 不然无法加载data，提示CORS跨域故障，只能在js里面加入data，很麻烦
-        data: '../data/MP14_PLNG_AREA_WEB_PL.geojson'   
+        data: 'MP14_PLNG_AREA_WEB_PL.geojson'   
     })
     // 区域划分线层
     map.addLayer({                 /* 为地图添加layer */
@@ -199,7 +199,6 @@ map.on('load', function() {
     });
 
     
-    count = 0
     // 点击区域显示信息
     map.on('click', "district", function (e) {
         new mapboxgl.Popup()
@@ -210,56 +209,6 @@ map.on('load', function() {
             '<font size="2" color="red">' + e.features[0].properties.Number + '</font>'
         )
         .addTo(map);
-        
-        // alert(e.lngLat); // 点击地图后显示当前经纬度
-        // console.log(e.features[0].properties.Center)
-        
-        // 清除上一次点击生成的layer
-        if (map.getLayer('arrow' + (count - 1).toString())) map.removeLayer('arrow' + (count - 1).toString());
-
-        // var line = turf.lineString([
-        //     [103.79974939342134, 1.3794621339721118],
-        //     [103.81,1.35],
-        //   ]);
-          
-        // var curved = turf.bezierSpline(line);
-        // console.log(curved.geometry.coordinates)
-
-        map.addLayer({
-            "id": "arrow" + count.toString(),
-            "type": "line",
-            "source": {
-                "type": "geojson",
-                "data": {
-                    "type": "Feature",
-                    "properties": {},
-                    "geometry": {
-                        "type": "LineString",
-                        "coordinates": [
-                            [Number(e.features[0].properties.lng), Number(e.features[0].properties.lat)],
-                            [103.66 + 0.27 * Math.random(), 1.3 + 0.11 * Math.random()],
-                            [Number(e.features[0].properties.lng), Number(e.features[0].properties.lat)],
-                            [103.66 + 0.27 * Math.random(), 1.3 + 0.11 * Math.random()],
-                            [Number(e.features[0].properties.lng), Number(e.features[0].properties.lat)],
-                            [103.66 + 0.27 * Math.random(), 1.3 + 0.11 * Math.random()]
-                            // [103.79974939342134, 1.3794621339721118]
-                        ]
-                    }
-                },
-                "lineMetrics": true
-            },
-            "layout": {
-                "line-join": "round",
-                "line-cap": "round"
-            },
-            "paint": {
-                "line-color": "#FF4040",
-                "line-width": 8,
-                'line-opacity': .5
-            }
-        });
-
-        count += 1
     });
         
     // Change the cursor to a pointer when the mouse is over the states layer.
