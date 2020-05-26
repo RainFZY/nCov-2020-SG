@@ -36,7 +36,7 @@ web端开发
 
 
 
-## Demo2 - Pandemic Prediction（疫情爆发预测）：
+## Demo2 - Pandemic Prediction（疫情爆发预测）
 
 **Requirements**: 
 
@@ -60,7 +60,7 @@ MapBox API
 
 
 
-## Demo3 - Heat Map of Infected（感染者热力图）：
+## Demo3 - Heat Map of Infected（感染者热力图）
 
 **Requirements**: 
 
