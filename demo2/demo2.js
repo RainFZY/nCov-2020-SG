@@ -17,32 +17,7 @@ var dates = ['-7 Days','-6 Days','-5 Days','-4 Days','-3 Days','-2 Days','-1 Day
 ];
 
 
-// // 添加数据
-// var move_data_array = [{},{},{},{},{},{},{}]
-// var move_data = null;
-// for(i = 0; i <= 1; i++){
-//     $.ajax({
-//         url: './data/day' + i.toString() + '.json',
-//         async: false,
-//         success: function (data) {
-//             move_data = data;
-//         }
-//     });
-//     move_data = JSON.parse(move_data); // 把读取到的string格式转化成json对象
-//     move_data_array.push(move_data)
-// }
-
-// var number_data = null
-// $.ajax({
-//     url: './data/num_data1.json',
-//     async: false,
-//     success: function (data) {
-//         number_data = data;
-//     }
-// });
-// var number_data = JSON.parse(number_data)
-
-
+// 添加数据
 // line数据：move_data_array
 // number数据：number_data
 var move_data_array = [
@@ -146,15 +121,7 @@ map.on('load', function() {
                 'interpolate',
                 ['linear'],
                 ['get', 'Number'],
-                // -1,'rgb(255,255,255)',
-                // 0, 'rgb(255,239,213)', // PapayaWhip
-                // 5, 'rgb(255,222,273)', // NavajoWhite
-                // 10, 'rgb(255,236,139)', // LightGoldenrod1
-                // 15, 'rgb(255,215,0)', // gold 1
-                // 20, 'rgb(233,150,122)', // DarkSalmon
-                // 25, 'rgb(255,48,48)', // Firebrick1
-                // 35, 'rgb(178,34,34)', // Firebrick4
-                // 40, 'rgb(139,58,58)' // IndianRed4
+                // 颜色渐变，根据number数据划定区域
                 0, '#FFDAB9',
                 5, '#FFA07A',
                 10, '#FA8072',
@@ -169,6 +136,7 @@ map.on('load', function() {
         }
     });
 
+    // 各个区的中心点坐标
     district_center = {
         "3":[103.82274838244598, 1.2749684425470633],
         "9":[103.74817602891096, 1.3846583982316076],
@@ -227,6 +195,7 @@ map.on('load', function() {
         "54":[103.84279797524732, 1.2906396500863195],
     }
 
+    // 各个区的名字
     district_name = {
         "3":"BUKIT MERAH",
         "9":"CHOA CHU KANG",
@@ -285,6 +254,7 @@ map.on('load', function() {
         "54":"SINGAPORE RIVER",
     }
 
+    // popup框
     var popup = new mapboxgl.Popup({className: 'popup', closeOnMove: false, closeOnClick: false})
 
     layer_index = 0 // 给move箭头的layer计数，从1开始一直累加
@@ -341,6 +311,7 @@ map.on('load', function() {
                 '<b>' + district_name[move_to_district_index] + '</b>' + ": " +
                 '<font size="2" color="orange">' + (correlation_coefficient * 100).toFixed(2).toString() + "%" + '</font>' + '<br>'
 
+            // 相关系数连线
             map.addLayer({
                 "id": "arrow" + layer_index.toString(),
                 "type": "line",
@@ -367,27 +338,11 @@ map.on('load', function() {
                     "line-join": "round",
                     "line-cap": "round"
                 },
-                // "paint": {
-                //     "line-color": "#FF4040",
-                //     "line-width": 8,
-                //     'line-opacity': .5
-                // }
                 'paint': {
                     'line-color': [
                         'interpolate',
                         ['linear'],
                         ['get', 'Correlation Coefficient'],
-                        // 0, 'rgba(255,255,255,0)',
-                        // 0.00001, 'rgba(255,255,255,0)',
-                        // 0.01, '#F2F12D',
-                        // 0.02, '#EED322',
-                        // 0.03, '#E6B71E',
-                        // 0.04, '#DA9C20',
-                        // 0.05, '#CA8323',
-                        // 0.06, '#B86B25',
-                        // 0.7, '#A25626',
-                        // 0.8, '#8B4225',
-                        // 0.9, '#723122'
                         0, 'rgba(255,255,255,0)',
                         0.00001, 'rgba(255,255,255,0)',
                         0.01, '#FFDAB9',
@@ -433,6 +388,7 @@ map.on('load', function() {
 			risk = 'Medium'
 		}
 
+        // popup框
         if (date <= 7){
             popup
                 .setLngLat(e.lngLat)
@@ -474,7 +430,8 @@ map.on('load', function() {
 
 
     var date = 7
-    filterBy(7);
+    // 初始化，设置默认天为today
+    filterBy(7); 
     // 滑条拖动事件
     document.getElementById('slider').addEventListener('input', function(e) {
         date = parseInt(e.target.value, 10);
@@ -498,9 +455,7 @@ map.on('load', function() {
             }
         }
         popup.remove();
-
     });
-
 });
 
 

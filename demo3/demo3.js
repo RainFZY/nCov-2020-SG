@@ -24,6 +24,7 @@ var dates = ['-7 Days','-6 Days','-5 Days','-4 Days','-3 Days','-2 Days','-1 Day
     '+8 Day','+9 Days','+10 Days','+11 Days','+12 Days','+13 Days','+14 Days',
 ];
 
+// 根据滑条的date的filter
 function filterBy(date) {
  
     var filters = ['==', 'date', date];
@@ -52,9 +53,6 @@ map.on('load', function() {
     data: {
         "type": "FeatureCollection",
         "features": data // 初始设置为加载最早日期的数据
-        //    [
-        //        {"type": "Feature", "properties": {}, "geometry": {"type": "Point", "coordinates": [103.81,1.35]}},
-        //        {"type": "Feature", "properties": {}, "geometry": {"type": "Point", "coordinates": [103.84,1.37]}}
     }
     });
 
@@ -221,6 +219,7 @@ map.on('load', function() {
         map.getCanvas().style.cursor = '';
     });
 
+    // 初始化，设置默认天为today
     filterBy(7);
     // 滑条拖动事件
     document.getElementById('slider').addEventListener('input', function(e) {
