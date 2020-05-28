@@ -22,7 +22,7 @@ web端开发
 
 ## Demo1
 
-**Requirements**: 
+**Dependencies**: 
 
 百度地图 API
 
@@ -37,7 +37,7 @@ web端开发
 
 
 ## Demo2
-**Requirements**: 
+**Dependencies**: 
 
 MapBox API
 
@@ -61,7 +61,7 @@ MapBox API
 
 
 ## Demo3
-**Requirements**: 
+**Dependencies**: 
 
 MapBox API
 
