@@ -10,13 +10,14 @@
 
 ## Background
 
-2020 Coronavirus in Singapore
+*2020 Coronavirus in Singapore*
 
-研究新型冠状病毒(nCov)在新加坡的传播情况——追踪与预测
+- 研究新型冠状病毒(nCov)在新加坡的传播情况——追踪与预测
 
-web端开发
+- web端开发
 
-数据支持：demo1、demo3数据为模拟值，demo2数据来自NCS 新加坡电信集团
+- 数据支持：demo1、demo3数据为模拟值，demo2数据来自NCS 新加坡电信集团
+
 
 
 
