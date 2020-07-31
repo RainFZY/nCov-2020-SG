@@ -64,8 +64,6 @@ MapBox API
 
 ![](https://github.com/RainFZY/nCov-2020-SG/blob/master/images/demo2.gif)
 
-![alsAwF.gif](https://s1.ax1x.com/2020/07/31/alsAwF.gif)
-
 
 
 
@@ -85,3 +83,5 @@ MapBox API
 4）右上角展示当前日期，总人口，当天全国确诊人数、疑似人数以及较昨日的增值，支持随日期滑条拖动同步改变
 
 ![](https://github.com/RainFZY/nCov-2020-SG/blob/master/images/demo3.png)
+
+![](https://github.com/RainFZY/nCov-2020-SG/blob/master/images/demo3.gif)
