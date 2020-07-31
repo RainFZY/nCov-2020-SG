@@ -35,7 +35,7 @@
 
 ![](https://github.com/RainFZY/nCov-2020-SG/blob/master/images/demo1.png)
 
-
+![aQ7qJ0.gif](https://s1.ax1x.com/2020/07/31/aQ7qJ0.gif)
 
 ## Demo2
 **Dependencies**: 
