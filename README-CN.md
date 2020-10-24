@@ -1,37 +1,37 @@
 # nCov-2020-SG
-## Table of Contents
+## 目录
 
-- [Background](#background)
-- [Demo1 - Contact Tracing](#demo1)
-- [Demo2 - Pandemic Prediction](#demo2)
-- [Demo3 - Heat Map of Infected](#demo3)
+- [背景](#背景)
+- [Demo1 - 接触者追踪](#demo1)
+- [Demo2 - 疫情爆发预测](#demo2)
+- [Demo3 - 感染者热力图](#demo3)
 
 
 
-## Background
+## 背景
 
-*2020 Coronavirus in Singapore*
+*2020 新加坡新冠疫情*
 
-- Developed a COVID-19 map to visualize the information of confirmed cases, including their locations, the places they have been to, the transportation facilities they used, etc. and to track active cases; 
+- 研究新型冠状病毒(nCov)在新加坡的传播情况——追踪与预测；
 
-- Web-based;
+- web端开发；
 
-- Data Support: data of demo1 and demo3 are simulative, data of demo2 are from NCS
+- 数据支持：demo1、demo3数据为模拟值，demo2数据来自NCS 新加坡电信集团
 
 
 
 
 ## Demo1
 
-**Dependencies**: 
+**地图工具:** 
 
-Baidu Map API
+百度地图 API
 
-**Functions**: 
+**实现功能：**
 
-1）Click a red point (represents a confirmed case) to view its information including their locations, the places they have been to, the transportation facilities they used, etc.
+1）点击红色点（感染者）显示其信息（感染者所处区域、去过的地方、交通工具等）
 
-2）Click a blue blue point (represents a place a confirmed case had been to) to view the location information.
+2）点击蓝色点（感染者去过的区域）显示地点信息
 
 ![](https://github.com/RainFZY/nCov-2020-SG/blob/master/images/demo1.png)
 
@@ -42,11 +42,11 @@ Baidu Map API
 
 
 ## Demo2
-**Dependencies**: 
+**地图工具:** 
 
 MapBox API
 
-**Functions**: 
+**实现功能：**
 
 1）添加新加坡区域划分线，根据每个区的确诊人数对区域进行填充，颜色越深表示疫情越严重
 
@@ -68,11 +68,11 @@ MapBox API
 
 
 ## Demo3
-**Dependencies**: 
+**地图工具:** 
 
 MapBox API
 
-**Functions**: 
+**实现功能：**
 
 1）将每个感染者的地理位置坐标点展示在地图上，根据密度形成热区
 
