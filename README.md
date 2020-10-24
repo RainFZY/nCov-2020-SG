@@ -5,8 +5,7 @@
 - [Demo1 - Contact Tracing](#demo1)
 - [Demo2 - Pandemic Prediction](#demo2)
 - [Demo3 - Heat Map of Infected](#demo3)
-
-
+- [中文版本](README-CN.md)
 
 ## Background
 
