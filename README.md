@@ -47,15 +47,15 @@ MapBox API
 
 **Functions**: 
 
-1）添加新加坡区域划分线，根据每个区的确诊人数对区域进行填充，颜色越深表示疫情越严重
+1）Add Singapore's region dividing line, fill each region with color based on the number of its confirmed cases. The darker the color, the more severe the epidemic situation.
 
-2）左上角设置日期滑条，可以拖动滑条查看前7天以及未来14天任意一天的疫情信息
+2）Place a scrollbar at the top-left corner to check the epidemic information from a week ago to two weeks later by scrolling the bar.
 
-3）点击某个区域显示该天该区域的确诊人数、疑似人数、总人数（前7天）或预计风险等级（未来14天），以及	  预计疫情爆发时间
+3）Click a certain region to view the number of its confirmed cases, suspected cases as well as the estimated outbreak time. Also the total number of cases (for the past week) and the estimated level of risk (for the following two weeks) are provided.
 
-4）点击某个区域显示与该区域相关系数最高的三个区域，并用连线进行连接，连线颜色深浅代表相关系数的高低
+4）Click a certain region to view its most related three regions, which are connected with lines. The darker the color of the line, the higher the correlation coefficient. 
 
-5）右上角展示当前日期，总人口，当天全国确诊人数、疑似人数、确诊 + 疑似总人数以及较昨日的增值，支持随日期滑条拖动同步改变
+5）The board at the top-right corner shows the date, total population and the summary of the epidemic situation. The information change synchronously with the scrollbar.
 
 ![](https://github.com/RainFZY/nCov-2020-SG/blob/master/images/demo2_1.png)
 
