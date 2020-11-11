@@ -55,7 +55,7 @@ MapBox API
 
 4）Click a certain region to view its most related three regions, which are connected with lines. The darker the color of the line, the higher the correlation coefficient. 
 
-5）The board at the top-right corner shows the date, total population and the summary of the epidemic situation. The information change synchronously with the scrollbar.
+5）The info box at the top-right corner shows the date, total population and the summary of the epidemic situation. The information change synchronously with the scrollbar.
 
 ![](https://github.com/RainFZY/nCov-2020-SG/blob/master/images/demo2_1.png)
 
@@ -73,13 +73,13 @@ MapBox API
 
 **Functions**: 
 
-1）将每个感染者的地理位置坐标点展示在地图上，根据密度形成热区
+1）Locate every confirmed case on the map and make thermodynamic diagrams based on the density of confirmed cases.
 
-2）添加新加坡区域划分线，点击区域显示每个区感染人数
+2）Add Singapore's region dividing line, click a certain region to view the number of its confirmed cases.
 
-3）左上角设置日期滑条，可以拖动滑条查看前7天以及未来14天任意一天的感染者分布情况
+3）Place a scrollbar at the top-left corner to check the epidemic information from a week ago to two weeks later by scrolling the bar.
 
-4）右上角展示当前日期，总人口，当天全国确诊人数、疑似人数以及较昨日的增值，支持随日期滑条拖动同步改变
+4）The info box at the top-right corner shows the date, total population and the summary of the epidemic situation. The information change synchronously with the scrollbar.
 
 ![](https://github.com/RainFZY/nCov-2020-SG/blob/master/images/demo3.png)
 
